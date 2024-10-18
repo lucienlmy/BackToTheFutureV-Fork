@@ -12,7 +12,7 @@ namespace BackToTheFutureV
         private int playAt;
         private bool finishedAnimating = true;
         private bool hasNuclearTimeTraveled = false;
-        private TimedEventHandler emptyTimer { get; } = new TimedEventHandler();
+        private TimedEventHandler EmptyTimer { get; } = new TimedEventHandler();
 
         public TFCHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -25,8 +25,8 @@ namespace BackToTheFutureV
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.StartFuelGaugeGoDown += StartFuelGaugeGoDown;
 
-            emptyTimer.Add(0, 0, 0, 3, 0, 0);
-            emptyTimer.Last.SetFloat(90f, 0f);
+            EmptyTimer.Add(0, 0, 0, 3, 0, 0);
+            EmptyTimer.Last.SetFloat(90f, 0f);
         }
 
         private void StartFuelGaugeGoDown(bool doAnim)
@@ -163,24 +163,24 @@ namespace BackToTheFutureV
 
             if (hasNuclearTimeTraveled)
             {
-                emptyTimer.RunEvents();
+                EmptyTimer.RunEvents();
             }
 
             if (!Properties.IsFueled && hasNuclearTimeTraveled && finishedAnimating)
             {
-                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, 0, emptyTimer.Last.CurrentFloat, 1, 50f, 1, true);
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, 0, EmptyTimer.Last.CurrentFloat, 1, 50f, 1, true);
                 if (Properties.AreTimeCircuitsOn)
                 {
                     Props.FuelGauge?.Play(true);
                 }
             }
 
-            if (emptyTimer.AllExecuted() && hasNuclearTimeTraveled)
+            if (EmptyTimer.AllExecuted() && hasNuclearTimeTraveled)
             {
                 Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, 0, 90f, 1, 50f, 1, true);
                 Props.FuelGauge?.SetRotation(Coordinate.Y, 0f, true);
                 Props.FuelGauge?.Stop();
-                emptyTimer.ResetExecution();
+                EmptyTimer.ResetExecution();
                 hasNuclearTimeTraveled = false;
             }
         }

@@ -87,7 +87,7 @@ namespace BackToTheFutureV
                 Streaming.RequestCollisionAt(Replica.Position);
             }
 
-            Vehicle vehicle = ped?.GetUsingVehicle();
+            Vehicle vehicle = ped?.CurrentVehicle;
 
             if (!vehicle.NotNullAndExists())
             {

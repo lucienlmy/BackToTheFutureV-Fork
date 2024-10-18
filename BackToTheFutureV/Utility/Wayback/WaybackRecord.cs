@@ -22,7 +22,7 @@ namespace BackToTheFutureV
             Ped = new WaybackPed(ped);
 
             if (!vehicle.NotNullAndExists())
-                vehicle = ped.GetUsingVehicle();
+                vehicle = ped?.CurrentVehicle;
 
             if (!vehicle.NotNullAndExists())
             {
